@@ -4,7 +4,20 @@ import { getMemory } from "../config/memory.js"
 
 export const chatAgent = async (state) => {
     const llm = getModel("chat")
+
+    const history=await getMemory(state.conversationId)
+    const searchContext=await state.searchResults?`
+    Web Search Results:
+     ${JSON.stringify(state.searchResults)}
+     Answer the user using only the above search results.
+    `:""
+
     const systemPrompt = `You are CortexAI, an intelligent AI assistant.
+     ${searchContext}
+     If searchContext exists:
+       -Use search results to answer.
+       -Do not use internal tools.
+
     Rules:
 
      - For simple questions, greetings, and short queries, respond naturally in plain text.
@@ -20,7 +33,10 @@ export const chatAgent = async (state) => {
     - Keep paragraphs short and readable.
     - Never write headings and content on the same line.
     - Never generate large walls of text.`
-    const history=await getMemory(state.conversationId)
+
+
+
+
     const messages=[
         new SystemMessage(systemPrompt)
     ];
@@ -29,7 +45,7 @@ export const chatAgent = async (state) => {
             messages.push(new HumanMessage(msg.content))
         }
         else{
-            messages.push(new AIMessage(msg.content))
+            messages.push(new AIMessage({content:msg.content}))
         }
         
     });

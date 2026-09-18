@@ -5,6 +5,8 @@ export const agentSate=Annotation.Root(
         prompt:Annotation(),  //prompt is key annotation helps in intiating the key
         aiResponse:Annotation(),
         agent:Annotation(),
-        conversationId:Annotation()
+        conversationId:Annotation(),
+        searchResults:Annotation(),
+        images:Annotation()
     }
 )

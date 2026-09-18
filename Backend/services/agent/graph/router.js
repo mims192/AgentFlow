@@ -1,6 +1,13 @@
 import { getModel } from "../config/llmmodel.js";
 
 export const router = async (state) => {
+  if(state.agent && state.agent!=="auto"){
+     return {
+    ...state,
+    agent: state.agent
+  };
+  }
+
   const llm = getModel("router");
 
   const prompt = `

@@ -7,6 +7,7 @@ export const agentSate=Annotation.Root(
         agent:Annotation(),
         conversationId:Annotation(),
         searchResults:Annotation(),
-        images:Annotation()
+        images:Annotation(),
+        artifacts:Annotation()
     }
 )

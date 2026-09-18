@@ -54,12 +54,14 @@ export const agent = async (req, res) => {
             conversationId,
             role: "assistant",
             content: response,
-            images
+            images,
+            artifacts:result?.artifacts
         });
 
         return res.status(200).json({
             answer: response,
-            images
+            images,
+            artifacts:result?.artifacts
         });
 
     } catch (err) {
